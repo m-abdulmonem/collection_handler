@@ -196,6 +196,37 @@ class Collection {
     return this;
   }
 
+
+  List<dynamic> splitKeys(Pattern pattern){
+    dynamic map(dynamic key) {
+      List newList = [];
+      if (key is Map){
+        key.forEach((k,v) => newList.add(k.split(pattern)));
+      }else{
+
+        newList.add(key.toString().split(pattern));
+      }
+      return newList[0];
+    }
+
+    return unique.asMap().keys.map(map).toList();
+  }
+
+  List<dynamic> splitValues(Pattern pattern){
+    dynamic map(dynamic key) {
+      List newList = [];
+      if (key is Map){
+        key.forEach((k,v) => newList.add(k.split(pattern)));
+      }else{
+
+        newList.add(key.split(pattern));
+      }
+      return newList[0];
+    }
+
+    return unique.asMap().values.map(map).toList();
+  }
+
   Collection get clear {
     _result.clear();
     list?.clear();
